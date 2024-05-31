@@ -6,11 +6,13 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const webpack = require('webpack');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
   entry: './src',
   devtool: isDevelopment ? 'eval-source-map' : 'source-map',
   plugins: [
+    new NodePolyfillPlugin(),
     isDevelopment && new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
@@ -57,8 +59,11 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     fallback: {
-      stream: require.resolve('stream-browserify'),
-      vm: require.resolve('vm-browserify'),
+      // ...config.resolve.fallback,
+      // stream: require.resolve('stream-browserify'),
+      // vm: require.resolve('vm-browserify'),
+      // // crypto: false
+      // // crypto
       crypto: require.resolve('crypto-browserify'),
     },
   },
