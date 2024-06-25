@@ -1,5 +1,5 @@
 import { createData, InjectedEthereumSigner } from 'arbundles';
-import { TurboFactory } from '@ardrive/turbo-sdk/web';
+import { TurboAuthenticatedClient } from '@ardrive/turbo-sdk/web';
 
 
 
@@ -28,7 +28,7 @@ import { TurboFactory } from '@ardrive/turbo-sdk/web';
 //   return [signer, turbo];
 // }
 
-export const uploadData = async (signer: InjectedEthereumSigner, turbo: TurboFactory, data: string): Promise<string> => {
+export const uploadData = async (signer: InjectedEthereumSigner, turbo: TurboAuthenticatedClient, data: string): Promise<string> => {
   const dataItem = createData(data, signer);
   const buf = await dataItem.sign(signer);
   console.log({ buf });
