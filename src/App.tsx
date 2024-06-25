@@ -19,7 +19,6 @@ import { Spinner } from './Spinner';
 import { DEFAULT_DOMAIN, DEFAULT_RITUAL_ID } from './config';
 import { uploadData, downloadData } from './ardrive';
 import { TurboFactory, TurboSigner } from '@ardrive/turbo-sdk/web';
-import { useSignMessage } from 'wagmi';
 import { InjectedEthereumSigner } from 'arbundles';
 
 const chainIdForDomain = {
@@ -42,7 +41,6 @@ export default function App() {
 
   const chainId = chainIdForDomain[domain];
   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const { signMessageAsync } = useSignMessage();
 
 
   useEffect(() => {
@@ -50,22 +48,22 @@ export default function App() {
     switchNetwork(chainId);
   }, [chainId]);
 
-  const minimalSigner = {
-    getSigner: () => {
-      return {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        signMessage: async (message: any): Promise<string> => {
-          console.log("signMessageAsync", message);
-          const arg = message instanceof String ? message : { raw: message };
-          return await signMessageAsync({
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            message: arg as any,
-          });
-        },
-      };
-    },
-  };
-  const signer = new InjectedEthereumSigner(minimalSigner);
+  // const minimalSigner = {
+  //   getSigner: () => {
+  //     return {
+  //       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //       signMessage: async (message: any): Promise<string> => {
+  //         console.log("signMessageAsync", message);
+  //         const arg = message instanceof String ? message : { raw: message };
+  //         return await signMessageAsync({
+  //           // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //           message: arg as any,
+  //         });
+  //       },
+  //     };
+  //   },
+  // };
+  const signer = new InjectedEthereumSigner(provider);
 
   const encryptMessage = async (message: string) => {
     if (!condition) {
@@ -136,7 +134,6 @@ export default function App() {
   }
 
   return (
-    <SignMessageProvider>
       <div>
         <div>
           <h2>Web3 Provider</h2>
@@ -196,6 +193,5 @@ export default function App() {
           decryptionErrors={decryptionErrors}
         />
       </div>
-    </SignMessageProvider>
   );
 }

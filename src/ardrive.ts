@@ -1,6 +1,5 @@
-import { useSignMessage } from 'wagmi';
 import { createData, InjectedEthereumSigner } from 'arbundles';
-import { TurboFactory, TurboSigner } from '@ardrive/turbo-sdk/web';
+import { TurboFactory } from '@ardrive/turbo-sdk/web';
 
 
 
@@ -32,7 +31,7 @@ import { TurboFactory, TurboSigner } from '@ardrive/turbo-sdk/web';
 export const uploadData = async (signer: InjectedEthereumSigner, turbo: TurboFactory, data: string): Promise<string> => {
   const dataItem = createData(data, signer);
   const buf = await dataItem.sign(signer);
-
+  console.log({ buf });
   const response = await turbo.uploadSignedDataItem({
     dataItemStreamFactory: () => buf,
     dataItemSizeFactory: () => buf.length,
