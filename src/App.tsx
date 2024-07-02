@@ -33,7 +33,7 @@ export default function App() {
 
   const [loading, setLoading] = useState(false);
   const [condition, setCondition] = useState<conditions.condition.Condition>();
-  const [encryptedMessageId, setEncryptedMessageIdId] = useState<string>();
+  const [encryptedMessageId, setEncryptedMessageId] = useState<string>();
   const [decryptedMessage, setDecryptedMessage] = useState<string>();
   const [decryptionErrors, setDecryptionErrors] = useState<string[]>([]);
   const [ritualId, setRitualId] = useState<number>(DEFAULT_RITUAL_ID);
@@ -90,9 +90,11 @@ export default function App() {
     });
     const response = await uploadData(signer, turbo, encryptedMessageHex);
   
-    const encryptedMessageId = response;
+    const encryptedMessageId = response.id;
     console.log({ encryptedMessageId });
-    return 'Data uploaded';
+    setEncryptedMessageId(encryptedMessageId);
+    setLoading(false);
+    return encryptedMessageId;
   };
 
   const decryptMessage = async (encryptedMessageId: string) => {
@@ -112,7 +114,7 @@ export default function App() {
       provider,
       domain,
       encryptedMessage,
-      getPorterUri(domain),
+      'https://porter-tapir.nucypher.io/',
       provider.getSigner(),
     );
 
@@ -187,7 +189,7 @@ export default function App() {
         />
 
         <Decrypt
-          enabled={!!encryptedMessageId}
+          enabled={true}
           decrypt={decryptMessage}
           decryptedMessage={decryptedMessage}
           decryptionErrors={decryptionErrors}
