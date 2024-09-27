@@ -48,21 +48,7 @@ export default function App() {
     switchNetwork(chainId);
   }, [chainId]);
 
-  // const minimalSigner = {
-  //   getSigner: () => {
-  //     return {
-  //       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //       signMessage: async (message: any): Promise<string> => {
-  //         console.log("signMessageAsync", message);
-  //         const arg = message instanceof String ? message : { raw: message };
-  //         return await signMessageAsync({
-  //           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //           message: arg as any,
-  //         });
-  //       },
-  //     };
-  //   },
-  // };
+
   const signer = new InjectedEthereumSigner(provider);
 
   const encryptMessage = async (message: string) => {

@@ -20,15 +20,20 @@ export const Encrypt = ({ encrypt, encryptedMessageId, enabled }: Props) => {
     if (!encryptedMessageId) {
       return <></>;
     }
+    const viewblockUrl = `https://viewblock.io/arweave/tx/${encryptedMessageId}`;
 
     return (
       <>
         <div>
-          <h3>Encrypted message id:</h3>
+          <h3>Arweave Upload Receipt id:</h3>
           <pre className="encryptedMessageId">{encryptedMessageId}</pre>
           <CopyToClipboard text={encryptedMessageId}>
             <button>Copy to clipboard</button>
           </CopyToClipboard>
+          <h3>View Transaction</h3>
+          <a href={viewblockUrl} target="_blank" rel="noopener noreferrer">
+            View on Viewblock
+          </a>
         </div>
       </>
     );
@@ -36,7 +41,7 @@ export const Encrypt = ({ encrypt, encryptedMessageId, enabled }: Props) => {
 
   return (
     <div>
-      <h2>Step 2 - Set conditions and Encrypt a message</h2>
+      <h2>Step 2 - Set Conditions, Encrypt, and Upload</h2>
       <input
         type="string"
         value={plaintext}

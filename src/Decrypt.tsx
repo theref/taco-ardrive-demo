@@ -59,7 +59,8 @@ export const Decrypt = ({
 
   return (
     <div>
-      <h2>Step 3 - Decrypt Encrypted Message</h2>
+      <h2>Step 3 - Download and Decrypt Encrypted Message</h2>
+      <h3>Use the receipt id</h3>
       <input
         value={encryptedMessageId}
         placeholder="Enter encrypted message id"
