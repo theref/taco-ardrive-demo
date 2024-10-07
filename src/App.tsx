@@ -111,7 +111,7 @@ export default function App() {
   if (!account) {
     return (
       <div>
-        <h2>Web3 Provider</h2>
+        <h2>Connect to App via Web3 Provider</h2>
         <button onClick={() => activateBrowserWallet()}>Connect Wallet</button>
       </div>
     );
@@ -124,33 +124,25 @@ export default function App() {
   return (
       <div>
         <div>
-          <h2>Web3 Provider</h2>
+          <h2>Disconnect from App</h2>
           <button onClick={deactivate}> Disconnect Wallet</button>
           {account && <p>Account: {account}</p>}
         </div>
 
-        <h2>Notice</h2>
+        <h2>Choose RitualID & Domain</h2>
         <p>
-          In production (mainnet domain), your wallet address (encryptor) will also have
-          to be allow-listed for this specific ritual. However, we have 
-          <a href={'https://docs.threshold.network/app-development/threshold-access-control-tac/integration-guide/get-started-with-tac#testnet-configuration'}>publicly available testnet rituals</a>
-          for use when developing your apps.
+          To use TACo's encrypt/decrypt API, you must choose a RitualID and Domain. The RitualID is the ID of the cohort of nodes that will manage access to encrypted data. The Domain is the network – i.e. testnet, devnet or mainnet. Note that using TACo in production (i.e. the mainnet version) requires your identity – in this case a wallet address – to be on an encryptor allowlist. This list is controlled by the Cohort Authority.
+         </p>
+         <p>
+          To use TACo's publicly available testnet, you can set the RitualID to '0'.
         </p>
-        <p>
-          Connect with us on our{' '}
-          <a href={'https://discord.gg/threshold'}>Discord server</a> for more info!
-        </p>
-
-        <h2>Ritual ID</h2>
-        <p>Replace with your own ritual ID</p>
+        <p>Choose a RitualID</p>
         <input
           type={'number'}
           value={ritualId}
           onChange={(e) => setRitualId(parseInt(e.currentTarget.value))}
         />
-
-        <h2>TACo Domain</h2>
-        <p>Must match the domain of your ritual</p>
+        <p>Choose a Domain. This must match the Domain of your RitualID – see the <a href={'https://docs.threshold.network/app-development/threshold-access-control-tac/integration-guide/get-started-with-tac#testnet-configuration'}>documentation</a>.</p>
         <select
           defaultValue={domain}
           onChange={(e) => setDomain(e.currentTarget.value)}
@@ -161,6 +153,11 @@ export default function App() {
             </option>
           ))}
         </select>
+
+        <p>
+          To request access to mainnet, connect with us on our{' '}
+          <a href={'https://discord.com/channels/866378471868727316/870383642751430666'}>Discord server</a>.
+        </p>
 
         <ConditionBuilder
           enabled={true}
